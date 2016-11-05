@@ -12,9 +12,9 @@ public class Main {
 		int folds = 5;
 		boolean width = false;
 		int sectSize = 5;
-		String name = "wine";
+		String name = "iris";
 		
-		DataSource dataSource = new DataSource("c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + "2.data", "c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".names");
+		DataSource dataSource = new DataSource("c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".data", "c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".names");
 		Data data = dataSource.getData();
 		//data.printData();
 		DataSet dataset = new DataSet(data, folds, width, sectSize);
@@ -31,10 +31,14 @@ public class Main {
 			System.out.println("-------TEST-------");
 		//	test.printData();
 			
-			Bayes bayes = new Bayes();
-			bayes.trainBayes(train);
+		//	Bayes bayes = new Bayes();
+		//	bayes.trainBayes(train);
 			//bayes.printOccurence();
-			ArrayList<String[]> results = bayes.testBayes(test);
+		//	ArrayList<String[]> results = bayes.testBayes(test);
+			
+			ILA ila = new ILA();
+			ila.trainILA(train);
+			ArrayList<String[]> results = ila.testILA(test);
 			
 			Results result = new Results();
 			

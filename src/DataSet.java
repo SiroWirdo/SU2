@@ -32,6 +32,7 @@ public class DataSet {
 		}else{
 			equalFrequency(sect);
 		}
+		changeArgForSect();
 		crossvalidation();
 
 		this.data.addUniqArguments(uniqArguments);
@@ -261,5 +262,38 @@ public class DataSet {
 		}else{
 			crossvalCounter++;
 		}
+	}
+	
+	public void changeArgForSect(){
+		ArrayList<String[]> arguments = data.getArguments();
+		for(String[] argument : arguments){
+			for(int index : contIndex){
+				ArrayList<String> uniqArg = uniqArguments.get(index);
+				int newIndex = getIndexOfSection(uniqArg, argument[index]);
+				argument[index] = uniqArg.get(newIndex);
+			} 
+		}
+	}
+	
+	private int getIndexOfSection(ArrayList<String> sections, String argument){
+		double value = Double.parseDouble(argument);
+
+		if(value <= Double.parseDouble(sections.get(0))){
+			return 0;
+		}
+
+		if(value > Double.parseDouble(sections.get(sections.size() - 1))){
+			return sections.size() - 1;
+		}
+
+		for(int i = 1; i < sections.size() - 1; i++){
+			String[] section = sections.get(i).split("_");
+
+			if(value > Double.parseDouble(section[0]) && value <= Double.parseDouble(section[1])){
+				return i;
+			}
+		}
+
+		return -1;
 	}
 }
