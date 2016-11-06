@@ -3,15 +3,17 @@ import java.util.HashMap;
 
 public class ILA {
 	private HashMap<String, ArrayList<ArrayList<String>>> uniqCombinations;
-	private ArrayList<String> rules;
+	private HashMap<String, ArrayList<String[]>> rules;
 
 	public ILA(){
 		uniqCombinations = new HashMap<String, ArrayList<ArrayList<String>>>();
+		rules = new HashMap<String, ArrayList<String[]>>();
 	}
 
 	public void trainILA(Data trainData){
 		int numComb = 1;
 		HashMap<String, ArrayList<ArrayList<String>>> tempCombinations = new HashMap<String, ArrayList<ArrayList<String>>>();
+		HashMap<String, ArrayList<ArrayList<String>>> tempData = new HashMap<String, ArrayList<ArrayList<String>>>(); /* do sprawdzenia ile zosta³o */
 		ArrayList<String> uniqClasses = trainData.getUniqClasses();
 		ArrayList<String[]> arguments = trainData.getArguments();
 		ArrayList<String> classes = trainData.getClasses();
@@ -19,6 +21,8 @@ public class ILA {
 		for(String className : uniqClasses){
 			ArrayList<ArrayList<String>> uniqArguments = new ArrayList<ArrayList<String>>();
 			ArrayList<ArrayList<String>> tempArguments = new ArrayList<ArrayList<String>>();
+			ArrayList<ArrayList<String>> tempDataArg = new ArrayList<ArrayList<String>>();
+			ArrayList<String[]> rulesLine = new ArrayList<String[]>();
 
 			for(ArrayList<String> temp : trainData.getUniqArguments()){
 				uniqArguments.add(new ArrayList<String>());
@@ -27,7 +31,11 @@ public class ILA {
 
 			uniqCombinations.put(className, uniqArguments);
 			tempCombinations.put(className, tempArguments);
+			tempData.put(className, tempDataArg);
+			rules.put(className, rulesLine);
 		}
+		
+		fillTempData(tempData, trainData);
 
 		for(int i = 0; i < arguments.size(); i++){
 			String[] argument = arguments.get(i);
@@ -45,7 +53,11 @@ public class ILA {
 
 		}
 
-		fillTempComb(tempCombinations, trainData);
+		for(String className : uniqClasses){
+			fillTempComb(tempCombinations, trainData);
+			ArrayList<ArrayList<String>> combination = tempCombinations.get(className);
+			
+		}
 
 		System.out.println();
 		//fillUniqCombinations(trainData, numComb);
@@ -73,8 +85,8 @@ public class ILA {
 				ArrayList<String> uniqArg = uniqArguments.get(i);
 				ArrayList<String> tempArg = tempArguments.get(i);
 
-				for(int j = 0; j < uniqArguments.size(); j++){
-					boolean contains = checkIfInAnother(uniqArg.get(j), classes, i, j, className);
+				for(int j = 0; j < uniqArg.size(); j++){
+					boolean contains = checkIfInAnother(uniqArg.get(j), classes, i, className);
 
 					if(!contains){
 						tempArg.add(uniqArg.get(j));
@@ -84,19 +96,38 @@ public class ILA {
 		}
 	}
 
-	private boolean checkIfInAnother(String argument, ArrayList<String> classes, int i, int j, String actClass){
+	private boolean checkIfInAnother(String argument, ArrayList<String> classes, int i, String actClass){
 		for(String anotherClass : classes){
 			if(!actClass.equals(anotherClass)){
 				ArrayList<ArrayList<String>> anotherArguments = uniqCombinations.get(anotherClass);
 				ArrayList<String> anotherArg = anotherArguments.get(i);
-				String value = anotherArg.get(j);
-				
-				if(value.equals(argument)){
-					return true;
+
+				for(String value : anotherArg){
+
+					if(value.equals(argument)){
+						return true;
+					}
 				}
 			}
 		}
-		
+
 		return false;
+	}
+	
+	private void fillTempData(HashMap<String, ArrayList<ArrayList<String>>> tempCombinations, Data data){
+		ArrayList<String> classes = data.getClasses();
+		ArrayList<String[]> arguments = data.getArguments();
+		
+		for(int i = 0; i < arguments.size(); i++){
+			String[] argument = arguments.get(i);
+			String className = classes.get(i);
+			ArrayList<ArrayList<String>> newArguments = tempCombinations.get(className);
+			ArrayList<String> values = new ArrayList<String>();
+			
+			for(int j = 0; j < argument.length; j++){
+				values.add(argument[j]);
+			}
+			newArguments.add(values);
+		}
 	}
 }
