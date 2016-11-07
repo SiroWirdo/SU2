@@ -176,11 +176,11 @@ public class DataSet {
 
 				//System.out.println("Sect = " + sect);
 
-				sections.add(sect);
+				sections.add("-" + sect);
 
 				for(int j = sizeSect;  j < argValue.size(); j += sizeSect){
 					if(j + sizeSect >= argValue.size()){
-						sect = Double.toString(argValue.get(j));
+						sect = Double.toString(argValue.get(j)) + "+";
 					}else{
 						sect = argValue.get(j) + "_" + argValue.get(j + sizeSect);
 					}
@@ -239,7 +239,7 @@ public class DataSet {
 	private ArrayList<String> getSections(double sect_size, double[] minMax, int numSect){
 		ArrayList<String> newSections = new ArrayList<String>();
 
-		newSections.add("" + minMax[0]);
+		newSections.add("-" + minMax[0]);
 
 		double low = 0;
 		double high = 0;
@@ -250,7 +250,7 @@ public class DataSet {
 			newSections.add(low + "_" + high);
 		}
 
-		newSections.add("" + high);
+		newSections.add(high + "+");
 
 		return newSections;
 	}
@@ -278,11 +278,11 @@ public class DataSet {
 	private int getIndexOfSection(ArrayList<String> sections, String argument){
 		double value = Double.parseDouble(argument);
 
-		if(value <= Double.parseDouble(sections.get(0))){
+		if(value <= Double.parseDouble(sections.get(0).replace("-", ""))){
 			return 0;
 		}
 
-		if(value > Double.parseDouble(sections.get(sections.size() - 1))){
+		if(value > Double.parseDouble(sections.get(sections.size() - 1).replace("+", ""))){
 			return sections.size() - 1;
 		}
 
