@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		int folds = 5;
+		int folds = 2;
 		boolean width = true;
 		int sectSize = 10;
 		String name = "iris";
@@ -28,7 +28,7 @@ public class Main {
 			Data test = dataset.getTestData();
 			
 		//	train.printData();
-			System.out.println("-------TEST-------");
+			
 		//	test.printData();
 			
 		//	Bayes bayes = new Bayes();
@@ -38,6 +38,8 @@ public class Main {
 			
 			ILA ila = new ILA();
 			ila.trainILA(train);
+			
+			System.out.println("-------TEST-------");
 			ArrayList<String[]> results = ila.testILA(test);
 			
 			Results result = new Results();
