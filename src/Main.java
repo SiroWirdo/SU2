@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		int folds = 2;
+		int folds = 10;
 		boolean width = true;
 		int sectSize = 10;
 		String name = "iris";

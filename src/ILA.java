@@ -19,10 +19,10 @@ public class ILA {
 		ArrayList<String[]> arguments = trainData.getArguments();
 		ArrayList<String> classes = trainData.getClasses();
 		
-		System.out.println("s1");
+		//System.out.println("s1");
 
 		for(String className : uniqClasses){
-			System.out.println("CLASS "+className);
+		//	System.out.println("CLASS "+className);
 			ArrayList<String> uniqArguments = new ArrayList<String>();
 			ArrayList<String> uniqFirstArguments = new ArrayList<String>();
 			ArrayList<String> tempArguments = new ArrayList<String>();
@@ -36,11 +36,11 @@ public class ILA {
 			rules.put(className, rulesLine);
 		}
 		
-		System.out.println("s2");
+		///System.out.println("s2");
 		
 		fillTempData(tempData, trainData);
 		
-		System.out.println("s3");
+	//	System.out.println("s3");
 
 		for(int i = 0; i < arguments.size(); i++){
 			String[] argument = arguments.get(i);
@@ -59,44 +59,46 @@ public class ILA {
 
 		}
 		
-		System.out.println("s4");
+	//	System.out.println("s4");
 
-		System.out.println();
+	//	System.out.println();
 		
 		int numComb = 1;
 
 		while(!checkIfFinished(tempData, uniqClasses)){
-			System.out.println("s5");
+		//	System.out.println("s5");
 			
 			fillTempComb(tempCombinations, trainData);
 			
-			System.out.println("s6");
+			
+			//System.out.println("s6");
 			
 			for(String className : uniqClasses){
 				
-				System.out.println("s7");
+				//System.out.println("s7");
 				
 				String maxComb = "";
 				ArrayList<String> combinations = tempCombinations.get(className);
-				//for (String s: combinations) System.out.println("COMB "+s);
+				//System.out.println("COMB SIZE "+combinations.size());
+				//for (String s: combinations) System.out.println("COMB x "+s); //np COMB x 0:4.3_4.66;3:0.33999999999999997_0.58;1:3.6800000000000006_3.9200000000000004 - kolejnoœæ 0 3 1, coœ zmienia?
 				ArrayList<ArrayList<String>> tempArguments = tempData.get(className);
 
 				if(tempArguments.size() > 0){
 					
-					System.out.println("s8");
+					//System.out.println("s8");
 					
 					maxComb = findMaxCombination(combinations, tempArguments);
-					System.out.println("MAX COMB "+maxComb);
+				//	System.out.println("MAX COMB "+maxComb);
 
 					while(maxComb != ""){
 						ArrayList<ArrayList<String>> combRules = rules.get(className);
 						for (ArrayList<String> row : combRules){
-							System.out.println("Rule : ");
-							for (String s: row)System.out.println(s);
+						//	System.out.println("Rule : ");
+						//	for (String s: row)System.out.println(s);
 						}
 						ArrayList<String> comb = new ArrayList<String>();
 						
-						System.out.println("s9");
+					//	System.out.println("s9");
 
 						String[] newComb = maxComb.split(";");
 
@@ -112,12 +114,14 @@ public class ILA {
 					}
 				}
 			}
-			
+			//if (numComb==5) {int j=3/0;}
+			//System.out.println("NUM "+numComb);
+			System.out.println(numComb);
 			increaseCombinations(uniqClasses, numComb);
 			numComb++;
 		}
 
-		System.out.println();
+	//	System.out.println();
 		//fillUniqCombinations(trainData, numComb);
 
 		//tempCombinations = cloneCombinations(trainData.getUniqClasses());
@@ -128,10 +132,10 @@ public class ILA {
 		ArrayList<String[]> arguments = testData.getArguments();
 		ArrayList<String> classes = testData.getClasses();
 		ArrayList<String> uniqClasses = testData.getUniqClasses();
-		System.out.println("tt");
+		//System.out.println("tt");
 		
 		for(int i = 0; i < arguments.size(); i++){
-				System.out.println(i);
+			//	System.out.println(i);
 				
 			String[] arg = arguments.get(i);
 			
@@ -170,29 +174,31 @@ public class ILA {
 		return results;
 	}
 
-	private void increaseCombinations(ArrayList<String> classes , int numComb){
+	private void increaseCombinations(ArrayList<String> classes , int numComb){//TODO TU B£¥D
+		//gdy NUMCOMB=5 (przewy¿sza liczbê argumentów), contain zawsze jest true,wiêc siê juz nie dodaje nic wiêcej,a na dodatek nadpisuje uniqCombinations pust¹ list¹ i potem uniqCombinations jest pusta
 		
-		System.out.println("------oldCombination------");
-		printCombinations(uniqCombinations, classes);
-		System.out.println("------firstCombination------");
-		printCombinations(uniqFirstCombinations, classes);
+		//System.out.println("------oldCombination------");
+		//printCombinations(uniqCombinations, classes);//TODO: tutaj s¹ puste combinacje,wiêc nie tworz¹ siee nowe
+		//System.out.println("------firstCombination------");
+	//	printCombinations(uniqFirstCombinations, classes);
 		
 		for(String className : classes){
 			ArrayList<String> oldCombinations = uniqCombinations.get(className);
 			ArrayList<String> firstCombinations = uniqFirstCombinations.get(className);
 			ArrayList<String> newCombinations = new ArrayList<String>();
 			uniqCombinations.replace(className, newCombinations);
-			
-			for(int i = 0; i < oldCombinations.size(); i++){
+			//if (oldCombinations.size()==0) {int ij=2/0;}//try
+			for(int i = 0; i < oldCombinations.size(); i++){//TODO: tutaj s¹ puste combinacje,wiêc nie tworz¹ siee nowe
 				String oldCom = oldCombinations.get(i);
 				String[] oldValues = oldCom.split(";");
-				
-				for(int j = i + numComb; j < firstCombinations.size(); j++){
+				//System.out.println("JJ "+(i+numComb) + " = " +firstCombinations.size());
+				for(int j = i + numComb; j < firstCombinations.size(); j++){//TODO czy ten for jest poprawny? myœlê,¿e nie
+					
 					String firstCom = firstCombinations.get(j);
 					String[] firstVal = firstCom.split(":");
 					boolean contain = false;
 					
-					for(String oldValue : oldValues){
+					for(String oldValue : oldValues){ 
 						String[] oldVal = oldValue.split(":");
 						
 						if(firstVal[0].equals(oldVal[0])){
@@ -204,12 +210,13 @@ public class ILA {
 						String newCom = oldCom + ";" + firstCom;
 						newCombinations.add(newCom);
 					}
+				//	System.out.println("CONT "+contain);
 				}
 			}
 		}
 		
-		System.out.println("------newCombination------");
-		printCombinations(uniqCombinations, classes);
+		//System.out.println("------newCombination------");
+		//printCombinations(uniqCombinations, classes);
 		
 	}
 	
@@ -229,7 +236,7 @@ public class ILA {
 	private void removeArguments(String comb, ArrayList<ArrayList<String>> arguments){
 		String[] newComb = comb.split(";");
 		ArrayList<ArrayList<String>> argumentsToRemove = new ArrayList<ArrayList<String>>();
-
+//System.out.println("REMOVE");
 		for(ArrayList<String> arg : arguments){
 			boolean contains = true;
 			for(String values : newComb){
@@ -247,15 +254,15 @@ public class ILA {
 			}
 		}
 
-		System.out.println("::: "+arguments.size() +", "+argumentsToRemove.size());
-		
+		//System.out.println("::: "+arguments.size() +", "+argumentsToRemove.size());
+	/*	
 		for (ArrayList<String> arg: arguments){
-			System.out.println("***");
+			//System.out.println("***");
 			for (String a: arg) System.out.println("a: "+a);
 		}
 		
 		for (ArrayList<String> arg: argumentsToRemove){
-			System.out.println("rrr");
+			//System.out.println("rrr");
 			for (String a: arg) System.out.println("r: "+a);
 		}
 		
@@ -264,10 +271,10 @@ public class ILA {
 		}
 		
 		for (ArrayList<String> arg: arguments){
-			System.out.println(">>>");
-			for (String a: arg) System.out.println("a2: "+a);
+			//System.out.println(">>>");
+			//for (String a: arg) System.out.println("a2: "+a);
 		}
-		System.out.println("after "+arguments.size());
+		//System.out.println("after "+arguments.size());*/
 	}
 
 	private String findMaxCombination(ArrayList<String> combinations, ArrayList<ArrayList<String>> arguments){
@@ -302,7 +309,7 @@ public class ILA {
 				maxCount = count;
 			}
 		}
-
+	//	if (maxComb=="") {System.out.println("cs "+combinations.size() + ", "); for (ArrayList<String> ar: arguments){System.out.println("... "); for (String a:ar) System.out.println("a) "+a);}}
 		return maxComb;
 	}
 
@@ -327,9 +334,14 @@ public class ILA {
 	private boolean checkIfInAnother(String argument, ArrayList<String> classes, String actClass){
 		for(String anotherClass : classes){
 			if(!actClass.equals(anotherClass)){
+				
 				ArrayList<String> anotherArguments = uniqCombinations.get(anotherClass);
-
+				/*if(!anotherArguments.contains(argument)){
+					
+				System.out.println(argument+" anotherArguments ");
+				for (String s: anotherArguments) System.out.println("> "+s);}*/
 				if(anotherArguments.contains(argument)){
+					System.out.println("contain");
 					return true;
 				}
 			}
