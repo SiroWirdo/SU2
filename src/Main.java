@@ -9,9 +9,9 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		int folds = 5;
+		int folds = 10;
 		boolean width = true;
-		int sectSize = 10;
+		int sectSize = 3;
 		String name = "iris";
 		
 		DataSource dataSource = new DataSource("c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".data", "c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".names");
@@ -27,9 +27,9 @@ public class Main {
 		//	train.printUniqArguments();
 			Data test = dataset.getTestData();
 			
-		//	train.printData();
+			train.printData();
 			
-		//	test.printData();
+			test.printData();
 			
 		//	Bayes bayes = new Bayes();
 		//	bayes.trainBayes(train);

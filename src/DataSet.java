@@ -266,12 +266,23 @@ public class DataSet {
 	
 	public void changeArgForSect(){
 		ArrayList<String[]> arguments = data.getArguments();
-		for(String[] argument : arguments){
+		ArrayList<String> classes = data.getClasses();
+		for(int i = 0; i < arguments.size(); i++){
+			String[] argument = arguments.get(i);
+			String className = classes.get(i);
+			for(String arg : argument){
+			System.out.print(arg + " ");
+			}
+			System.out.println(className);
 			for(int index : contIndex){
 				ArrayList<String> uniqArg = uniqArguments.get(index);
 				int newIndex = getIndexOfSection(uniqArg, argument[index]);
 				argument[index] = uniqArg.get(newIndex);
 			} 
+			for(String arg : argument){
+				System.out.print(arg + " ");
+				}
+			System.out.println("*****");
 		}
 	}
 	
