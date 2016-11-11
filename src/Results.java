@@ -117,9 +117,10 @@ public class Results {
 				finPrecision += precision;
 				finRecall += recall;
 				finFScore += fScore;
-			}else{
-				outClass++;
-			}
+			}//else{
+			//	outClass++;
+			//}
+			if (TN==0 && TP==0 && FP==0 && FN==0) outClass++;//O.
 		}
 
 		int size = names.size() - outClass;
