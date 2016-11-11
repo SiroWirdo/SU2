@@ -11,11 +11,7 @@ public class Main {
 		
 		int folds = 5;
 		boolean width = true;
-<<<<<<< HEAD
 		int sectSize = 20;
-=======
-		int sectSize = 10;
->>>>>>> parent of 8157251... qwert
 		String name = "iris";
 		
 		DataSource dataSource = new DataSource("c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".data", "c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".names");
@@ -31,9 +27,9 @@ public class Main {
 		//	train.printUniqArguments();
 			Data test = dataset.getTestData();
 			
-		//	train.printData();
+			train.printData();
 			
-		//	test.printData();
+			test.printData();
 			
 		//	Bayes bayes = new Bayes();
 		//	bayes.trainBayes(train);
