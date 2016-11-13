@@ -9,10 +9,10 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		int folds = 5;
+		int folds = 10;
 		boolean width = true;
-		int sectSize = 100;
-		String name = "wine";
+		int sectSize = 3;
+		String name = "iris";
 		
 		DataSource dataSource = new DataSource("c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".data", "c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".names");
 		Data data = dataSource.getData();

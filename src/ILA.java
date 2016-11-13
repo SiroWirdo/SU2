@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -100,11 +99,11 @@ public class ILA {
 			///	
 			for(String className : uniqClasses){
 
-					System.out.println(className);
-				
+				//	System.out.println("s7");
+
 				String maxComb = "";
 				ArrayList<String> combinations = tempCombinations.get(className);
-				for (String s: combinations) System.out.println("COMB "+s);
+				//for (String s: combinations) System.out.println("COMB "+s);
 				ArrayList<ArrayList<String>> tempArguments = tempData.get(className);
 
 				if(tempArguments.size() > 0){
@@ -131,27 +130,20 @@ public class ILA {
 						}
 
 						combRules.add(comb);
-						//combinationsToRemove.add(maxComb);
-						removeArguments(maxComb, tempArguments);
+						combinationsToRemove.add(maxComb);
 
 						combinations.remove(maxComb);
 
 						maxComb = findMaxCombination(combinations, tempArguments);
 					}
 
-				//	for(String comb : combinationsToRemove){
-				//		removeArguments(comb, tempArguments);
-				//	}
+					for(String comb : combinationsToRemove){
+						removeArguments(comb, tempArguments);
+					}
 				}
 			}
-			HashMap<String,ArrayList<ArrayList<String>>> array=new HashMap<>();
-			for (String s: classes){
-				ArrayList<ArrayList<String>> ar=new ArrayList<>();
-				array.put(s, ar);
-			}
-			fillTempData(array, trainData);
-			
-			increaseCombinations(uniqClasses, numComb, array);
+
+			increaseCombinations(uniqClasses, numComb, tempData);
 			numComb++;
 		}
 
@@ -211,10 +203,10 @@ public class ILA {
 
 	private void increaseCombinations(ArrayList<String> classes , int numComb, HashMap<String, ArrayList<ArrayList<String>>> tempData){
 
-		System.out.println("------oldCombination------");
-		printCombinations(uniqCombinations, classes);
-		System.out.println("------firstCombination------");
-		printCombinations(uniqFirstCombinations, classes);
+	//	System.out.println("------oldCombination------");
+	//	printCombinations(uniqCombinations, classes);
+	//	System.out.println("------firstCombination------");
+	//	printCombinations(uniqFirstCombinations, classes);
 
 		for(String className : classes){
 			ArrayList<String> oldCombinations = uniqCombinations.get(className);
@@ -281,8 +273,8 @@ public class ILA {
 			}
 		}
 
-		System.out.println("------newCombination------");
-		printCombinations(uniqCombinations, classes);
+	//	System.out.println("------newCombination------");
+	//	printCombinations(uniqCombinations, classes);
 
 	}
 
