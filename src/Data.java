@@ -81,7 +81,7 @@ public class Data {
 		for(int i = 0; i < arguments.size(); i++){
 			System.out.println("");
 			for(int j = 0; j < arguments.get(i).length; j++){
-				System.out.print(arguments.get(i)[j] + " " );
+				System.out.print("d " + arguments.get(i)[j] + " " );
 			}
 			System.out.print(classes.get(i));
 		}

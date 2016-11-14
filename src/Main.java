@@ -9,10 +9,10 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		int folds = 10;
+		int folds = 5;
 		boolean width = true;
-		int sectSize = 3;
-		String name = "iris";
+		int sectSize = 20;
+		String name = "ecoli";
 		
 		DataSource dataSource = new DataSource("c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".data", "c:/Studia/Systemy ucz¹ce sie v2/" + name + "/" + name + ".names");
 		Data data = dataSource.getData();
@@ -27,9 +27,11 @@ public class Main {
 		//	train.printUniqArguments();
 			Data test = dataset.getTestData();
 			
-			train.printData();
+		//	System.out.println("train");
+		//	train.printData();
 			
-			test.printData();
+		//	System.out.println("test");
+		//	test.printData();
 			
 		//	Bayes bayes = new Bayes();
 		//	bayes.trainBayes(train);
@@ -61,7 +63,7 @@ public class Main {
 		try {
 			Calendar cal = Calendar.getInstance();
 	        SimpleDateFormat sdf = new SimpleDateFormat("HH-mm-ss");
-			String path = "c:/Studia/Systemy ucz¹ce sie v2/zad1/";
+			String path = "c:/Studia/Systemy ucz¹ce sie v2/zad2/";
 			String nameRes = name + "_" +sdf.format(cal.getTime()) + "_" + folds + "_" + width + "_" + sectSize + ".csv";
 
 			writer = new PrintWriter(path + nameRes, "UTF-8");

@@ -37,7 +37,7 @@ public class ILA {
 			rules.put(className, rulesLine);
 		}
 
-		//System.out.println("s2");
+	//	System.out.println("s2");
 
 		fillTempData(tempData, trainData);
 
@@ -60,14 +60,14 @@ public class ILA {
 
 		}
 
-		//System.out.println("s4");
+	//	System.out.println("s4");
 
 		//System.out.println();
 
 		int numComb = 1;
 
 		while(!checkIfFinished(tempData, uniqClasses)){
-			//	System.out.println("s5");
+		//		System.out.println("s5");
 
 			/*	if(numComb >2){ 
 				System.out.println("oooooooo");
@@ -88,7 +88,7 @@ public class ILA {
 				}
 				}*/
 
-			if(numComb == 6){
+			if(numComb == 15){
 				int z = 2/0;
 				System.out.println(z);
 			}
@@ -121,29 +121,41 @@ public class ILA {
 						//		}
 						ArrayList<String> comb = new ArrayList<String>();
 
-						//		System.out.println("s9");
+							//	System.out.println("s9");
 
 						String[] newComb = maxComb.split(";");
 
 						for(String values : newComb){
 							comb.add(values);
 						}
+					//	System.out.println("s10");
 
 						combRules.add(comb);
-						combinationsToRemove.add(maxComb);
+					//	combinationsToRemove.add(maxComb);
 
-						combinations.remove(maxComb);
-
+						removeArguments(maxComb, tempArguments);
+					//	System.out.println("s11");
 						maxComb = findMaxCombination(combinations, tempArguments);
+					//	System.out.println("s12");
 					}
 
-					for(String comb : combinationsToRemove){
+				/*	for(String comb : combinationsToRemove){
 						removeArguments(comb, tempArguments);
-					}
+					}*/
 				}
 			}
-
-			increaseCombinations(uniqClasses, numComb, tempData);
+		//	System.out.println("s13");
+			HashMap<String,ArrayList<ArrayList<String>>> array=new HashMap<>();
+			for (String s: classes){
+				ArrayList<ArrayList<String>> ar=new ArrayList<>();
+				array.put(s, ar);
+			}
+		//	System.out.println("s14");
+			fillTempData(array, trainData);
+			//System.out.println("s15");
+			increaseCombinations(uniqClasses, numComb, array);
+		//	System.out.println("s16");
+		//	increaseCombinations(uniqClasses, numComb, tempData);
 			numComb++;
 		}
 
@@ -171,6 +183,7 @@ public class ILA {
 				boolean equals = true;
 
 				for(ArrayList<String> comb : combinations){
+					equals = true;
 					for(String value : comb){
 						String[] tempVal = value.split(":");
 						if(!tempVal[1].equals(arg[Integer.parseInt(tempVal[0])])){
@@ -181,6 +194,8 @@ public class ILA {
 					if(equals){
 						String[] res = {classes.get(i), className};
 						results.add(res);
+						
+					//	System.out.println("*" + res[0] + " " + res[1]);
 						break;
 					}
 				}
@@ -190,10 +205,12 @@ public class ILA {
 				}
 
 				if(j == uniqClasses.size() - 1){
-					int temp = j > 0 ? -1 : 1;
+					int temp = i > 0 ? -1 : 1;
 					
-					String[] res = {uniqClasses.get(j), uniqClasses.get(j + temp)};
+					String[] res = {classes.get(i), classes.get(i + temp)};
 					results.add(res);
+					
+				//	System.out.println("***" + res[0] + " " + res[1]);
 				}
 			}
 		}
@@ -280,7 +297,7 @@ public class ILA {
 
 	private boolean checkIfFinished(HashMap<String, ArrayList<ArrayList<String>>> tempData, ArrayList<String> classes){
 		boolean finished = true;
-		System.out.println("KLASES "+classes.size());
+	//	System.out.println("KLASES "+classes.size());
 		for(String className : classes){
 			ArrayList<ArrayList<String>> tempArg = tempData.get(className);
 
@@ -289,7 +306,7 @@ public class ILA {
 				for (int i=tempArg.size()-1;i>=0;i--){
 					if (tempArg.get(i)==null){
 						tempArg.remove(i);
-						System.out.println("clasremove "+className);
+					//	System.out.println("clasremove "+className);
 					}
 				}
 				if(tempArg.size() > 0){
@@ -390,7 +407,7 @@ public class ILA {
 
 			for(int i = 0; i < uniqArguments.size(); i++){
 				boolean contains = checkIfInAnother(uniqArguments.get(i), classes, className);
-
+//System.out.println(i);
 				if(!contains){
 					tempArguments.add(uniqArguments.get(i));
 				}

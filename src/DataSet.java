@@ -270,19 +270,19 @@ public class DataSet {
 		for(int i = 0; i < arguments.size(); i++){
 			String[] argument = arguments.get(i);
 			String className = classes.get(i);
-			for(String arg : argument){
-			System.out.print(arg + " ");
-			}
-			System.out.println(className);
+		//	for(String arg : argument){
+		//	System.out.print(arg + " ");
+		//	}
+		//	System.out.println(className);
 			for(int index : contIndex){
 				ArrayList<String> uniqArg = uniqArguments.get(index);
 				int newIndex = getIndexOfSection(uniqArg, argument[index]);
 				argument[index] = uniqArg.get(newIndex);
 			} 
-			for(String arg : argument){
-				System.out.print(arg + " ");
-				}
-			System.out.println("*****");
+		//	for(String arg : argument){
+		//		System.out.print(arg + " ");
+		//		}
+		//	System.out.println("*****");
 		}
 	}
 	
